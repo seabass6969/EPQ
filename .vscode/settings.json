@@ -1,0 +1,11 @@
+{
+    "cSpell.enableFiletypes": [
+        "!css",
+        "!javascript",
+        "!python",
+        "!typescript",
+        "!typescriptreact",
+        "markdown_latex_combined",
+        "tex"
+    ]
+}

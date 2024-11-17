@@ -1,0 +1,41 @@
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath, amsfonts, amsthm, graphicx, geometry, lipsum}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{blindtext, titlesec}
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+\hypersetup {
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=red,
+    pdftitle={\runtitle}
+}
+\usepackage{verbatim, fancyvrb}
+
+\usepackage{fancyhdr, lastpage}
+\pagestyle{fancy}
+\lhead{\runtitle}
+\rhead{\runauthor}
+\cfoot{Page \thepage \ of \pageref{LastPage}}
+\usepackage{listings}
+
+
+\patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{}
+\expandafter\patchcmd\csname chapter*\endcsname{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{}
+
+\usepackage[Sonny]{fncychap}
+\usepackage{xcolor-material}
+\usepackage[svgnames]{xcolor}
+\usepackage{tikz, tcolorbox}
+
+\patchcmd{\thebibliography}{\chapter*}{\chapter}{}{}
+
+\usepackage{longtable}
+\usepackage{booktabs}
+
+\DeclareUnicodeCharacter{2061}{}
