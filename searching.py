@@ -7,11 +7,11 @@ import matplotlib.pyplot as plt
 
 def scoring_song(time_offsets):
     time_gap = 0.5
-    bin = numpy.arange(int(min(time_offsets)), int(max(time_offsets)) + 1 + time_gap)
+    bin = numpy.arange((min(time_offsets)), (max(time_offsets)) + 1 + time_gap)
     counts, bins = numpy.histogram(time_offsets, bins=bin)
     print(time_offsets)
-    # plt.stairs(counts, bins)
-    # plt.show()
+    plt.stairs(counts, bins)
+    plt.show()
     return numpy.max(counts)
 
 def searching(file_name):
@@ -28,6 +28,6 @@ def searching(file_name):
 
 
 if __name__ == "__main__":
-    matched = searching("test/shifted_sugar.wav")
+    matched = searching("test/new_test/Divertismento_shifted.wav")
     print(matched)
 # "songs/dance_of_the_sugar_plum_fairy.ogg"

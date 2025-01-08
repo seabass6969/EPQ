@@ -1,3 +1,4 @@
+import settings
 import sqlite3
 import spectrogram_analysis
 import uuid
@@ -13,7 +14,6 @@ def write_points(items):
     cursor.executemany('INSERT INTO "points" VALUES (?, ?, ?)', items)
     conn.commit()
     conn.close()
-
 
 def search_points(searchPairs):
     """
@@ -33,7 +33,7 @@ def search_points(searchPairs):
     return time
 
 
-def new_song_entry(song_name, song_author, song_file, License, song_url):
+def new_song_entry(song_name, song_author, song_file, License, song_url, genre):
     uuid_song = str(uuid.uuid4())
     sqlstr = f"""
         INSERT INTO "songs" VALUES 
@@ -43,7 +43,8 @@ def new_song_entry(song_name, song_author, song_file, License, song_url):
             '{song_author}',
             '{song_file}',
             '{License}',
-            '{song_url}'
+            '{song_url}',
+            "{genre}"
         );
     """
 
@@ -56,8 +57,8 @@ def new_song_entry(song_name, song_author, song_file, License, song_url):
     return uuid_song
 
 
-def adding_entry(song_name, song_author, song_file, License, song_url):
-    uuids = new_song_entry(song_name, song_author, song_file, License, song_url)
+def adding_entry(song_name, song_author, song_file, License, song_url, genre):
+    uuids = new_song_entry(song_name, song_author, song_file, License, song_url, genre)
     pairs = list(spectrogram_analysis.getPairs(song_file, uuids))
     # unique = []
     # for pair in pairs:
@@ -65,7 +66,8 @@ def adding_entry(song_name, song_author, song_file, License, song_url):
     #         unique.append(pair)
     # print(len(unique))
     write_points(pairs)
-    print("I wrote {} points".format(len(pairs)))
+    if settings.DEBUG:
+        print("I wrote {} points".format(len(pairs)))
 
 
 def get_entry(ID):
@@ -75,18 +77,4 @@ def get_entry(ID):
 
 
 if __name__ == "__main__":
-    adding_entry(
-        song_name="Dance of the Sugar Plum Fairy",
-        song_author="P. I. Tchaikovsky / Kevin MacLeod",
-        song_file="songs/dance_of_the_sugar_plum_fairy.ogg",
-        License="Creative Commons Attribution License",
-        song_url="https://freemusicarchive.org/music/Kevin_MacLeod/Classical_Sampler/Dance_of_the_Sugar_Plum_Fairy",
-    )
-
-    adding_entry(
-        song_name="Hungarian Dance number 5",
-        song_author="Johannes Brahms / US Army Strings",
-        song_file="songs/brahm.ogg",
-        License="Public Domain",
-        song_url="https://musopen.org/music/43805-hungarian-dance-no-5-in-f-sharp-minor-woo-1-string-orchestra-arr/",
-    )
+    pass
