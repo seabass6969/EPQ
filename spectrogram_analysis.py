@@ -22,11 +22,11 @@ def LoadFile(file_name: str):
         :return: data, sample_rate
     """
     file = os.path.join("", file_name)
-    audioFile = AudioSegment.from_file(file)
-    # audioFile = audioFile.set_channels(1).set_frame_rate(settings.sample_rate)
-    return np.frombuffer(audioFile.raw_data, np.int16)
+    data, sample_rate = librosa.load(file, sr=settings.sample_rate)
+    print(sample_rate)
+    return data
 
-def convertTFtorealTF(coordinates, t,f):
+def convertTFtorealTF(coordinates, f):
     """
         :param coordinates: list of coordinates formatted originally in (time, frequency) but in index location form
         :param t: list of time index location from scipy.signal.spectrogram
@@ -34,25 +34,34 @@ def convertTFtorealTF(coordinates, t,f):
 
         :returns: Returns original location values of (time, frequency)
     """
-    return np.array([(f[i[0]], t[i[1]] ) for i in coordinates])
+    return np.array([(i[1] * settings.hop_length / settings.sample_rate, f[i[0]]) for i in coordinates])
 
 def getPeaks(data):
-    frequencies, time, spec = spectrogram(data, settings.sample_rate)
-    filtered_spectrogram = maximum_filter(spec, size=settings.box_size, mode="constant", cval=0.0)
+    spec, frequencies = createSpectrogram(data)
+    filtered_spectrogram = maximum_filter(spec, size=settings.box_size, mode="constant", cval=0)
     peak_boolean_mask = (spec == filtered_spectrogram)
-    peak_y, peak_x = peak_boolean_mask.nonzero()
-    peak_values = spec[peak_y, peak_x]
+    peak_times, peak_frequencies = peak_boolean_mask.nonzero()
+    peak_values = spec[peak_times, peak_frequencies]
     indexes = peak_values.argsort()[::-1] # reversed sorted index
-    j = [(peak_y[idx], peak_x[idx]) for idx in indexes]
+    # sorting power level from the largest to the smallest
+    j = [(peak_times[idx], peak_frequencies[idx]) for idx in indexes]
+    # j: (time, frequency)
     total_peaks = spec.shape[0] * spec.shape[1]
     peak_target = int((total_peaks / (settings.box_size ** 2)) * settings.point_efficiency)
-    real_j = convertTFtorealTF(j[:peak_target], time, frequencies)
+    # real_j = convertTFtorealTF(j[:peak_target], frequencies)
+    real_j = convertTFtorealTF(j, frequencies)
+    print(real_j)
+    print("Max time: ", max(real_j[:,0]))
+    print("Max Frequency: ",max(real_j[:,1]))
     if settings.PRODUCE_DIAGRAM:
         figs, axs = plt.subplots(2, sharex=True, sharey=True)
-        axs[0].pcolormesh(time, frequencies, spec, shading="auto")
-        axs[1].pcolormesh(time, frequencies, filtered_spectrogram, shading="auto")
+        img = librosa.display.specshow(spec, x_axis='time', y_axis='linear',ax=axs[0])
+        # figs.colorbar(img, ax=axs)
+        # img = librosa.display.specshow(filtered_spectrogram, x_axis='time', y_axis='linear', ax=axs[1])
+        # axs[0].pcolormesh(time, frequencies, spec, shading="auto")
+        # axs[1].pcolormesh(time, frequencies, filtered_spectrogram, shading="auto")
         x,y = real_j.T
-        axs[1].scatter(y, x, color="lime", s=2)
+        axs[0].scatter(x, y, color="lime", s=2)
         
         plt.show()
     return real_j
@@ -112,10 +121,15 @@ def getPairs(song_file, uuids):
         for target_point in getTargetZonePoints(peaks, anchor_point):
             yield (hashPoints(anchor_point, target_point), uuids, round(anchor_point[1].item(), 1))
 
-def createSpectrogram(file_name):
-    data, _ = librosa.load(file_name)
-    mel = librosa.feature.melspectrogram(y=data, sr=settings.sample_rate)
-    mel_frequency = librosa.mel_frequencies(n_mels=mel.shape[0], fmin=0, fmax=settings.sample_rate)
+def createSpectrogram(data):
+    """
+        :return ([(n_mels, time)], mel_frequencies)
+    """
+    mel = librosa.feature.melspectrogram(y=data, sr=settings.sample_rate, n_mels=settings.n_mels, hop_length=settings.hop_length)
+    print(mel.shape)
+    mel_frequency = librosa.mel_frequencies(n_mels=mel.shape[0], fmin=0, fmax=(settings.sample_rate))
+    # times = [t * settings.hop_length / settings.sample_rate for t in range(mel.shape[1])]
+    return mel, mel_frequency
 
 if __name__ == "__main__":
     peaks = getPeaks(LoadFile("./songs/dance_of_the_sugar_plum_fairy.ogg"))

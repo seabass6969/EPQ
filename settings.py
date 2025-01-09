@@ -4,7 +4,7 @@ DEBUG = True
 
 sample_rate = 44100 
 # set standard to all the sample rate 
-n_mels = 128
+n_mels = 20
 n_fft = 2048
 hop_length = 512
 # hop length = the number of samples between the start of two consecutive windows in the signal windowing
