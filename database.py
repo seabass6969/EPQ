@@ -2,6 +2,8 @@ import settings
 import sqlite3
 import spectrogram_analysis
 import uuid
+import os
+import tqdm
 
 
 def connection():
@@ -21,14 +23,25 @@ def search_points(searchPairs):
     """
     conn = connection()
     time = {}
-    for pairs in searchPairs:
-        result = conn.execute(
-            f'SELECT Song_ID, Time_Offset FROM points WHERE Hash="{pairs[1]}";'
-        ).fetchall()
-        for r in result:
-            if r[0] not in time:
-                time[r[0]] = []
-            time[r[0]].append(r[1])
+    conn.execute("PRAGMA synchronous = NORMAL;")
+    if settings.DEBUG:
+        for pairs in tqdm.tqdm(searchPairs):
+            result = conn.execute(
+                f'SELECT Song_ID, Time_Offset FROM points WHERE Hash="{pairs[1]}";'
+            ).fetchall()
+            for r in result:
+                if r[0] not in time:
+                    time[r[0]] = []
+                time[r[0]].append(r[1])
+    else:
+        for pairs in searchPairs:
+            result = conn.execute(
+                f'SELECT Song_ID, Time_Offset FROM points WHERE Hash="{pairs[1]}";'
+            ).fetchall()
+            for r in result:
+                if r[0] not in time:
+                    time[r[0]] = []
+                time[r[0]].append(r[1])
 
     return time
 
@@ -57,17 +70,17 @@ def new_song_entry(song_name, song_author, song_file, License, song_url, genre):
     return uuid_song
 
 
-def adding_entry(song_name, song_author, song_file, License, song_url, genre):
-    uuids = new_song_entry(song_name, song_author, song_file, License, song_url, genre)
-    pairs = list(spectrogram_analysis.getPairs(song_file, uuids))
+def adding_entry(song_name, song_author, song_file, song_start_directory, License, song_url, genre):
+    uuids = new_song_entry(song_name, song_author, os.path.join(song_start_directory, song_file), License, song_url, genre)
+    pairs = list(spectrogram_analysis.getPairs(song_file, song_start_directory, uuids))
     # unique = []
     # for pair in pairs:
     #     if pair not in unique:
     #         unique.append(pair)
     # print(len(unique))
     write_points(pairs)
-    if settings.DEBUG:
-        print("I wrote {} points".format(len(pairs)))
+    # if settings.DEBUG:
+    print("I wrote {} points".format(len(pairs)))
 
 
 def get_entry(ID):

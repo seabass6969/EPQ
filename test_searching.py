@@ -2,8 +2,9 @@ import pytest
 import settings as settings
 import database
 import searching
+
 def test_untouched():
-    matched = database.search_points(searching.searching("songs/brahm.ogg"))
+    matched = database.search_points(searching.searching("Divertismento_original.wav", "test/new_test"))
     print(database.get_entry(list(matched.keys())[0]))
     print(matched)
     assert matched != {}

@@ -14,8 +14,8 @@ def scoring_song(time_offsets):
     plt.show()
     return numpy.max(counts)
 
-def searching(file_name):
-    deltas_hashes = list(spectrogram_analysis.searchPairs(file_name))
+def searching(file_name, file_start):
+    deltas_hashes = list(spectrogram_analysis.searchPairs(file_name, file_start))
     print(len(deltas_hashes))
     songs_dict = database.search_points(deltas_hashes)
     # this returns the original offsets to the song
@@ -28,6 +28,6 @@ def searching(file_name):
 
 
 if __name__ == "__main__":
-    matched = searching("test/new_test/Divertismento_shifted.wav")
+    matched = searching("Divertismento_shifted.wav", "test/new_test/")
     print(matched)
 # "songs/dance_of_the_sugar_plum_fairy.ogg"
