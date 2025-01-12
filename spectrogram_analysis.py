@@ -11,6 +11,8 @@ from scipy.io import wavfile
 import ffmpeg
 import re
 import uuid
+import hashlib
+from typing import Tuple
 
 # Load an audio file and compute a Mel spectrogram
 
@@ -99,6 +101,9 @@ def getTargetZonePoints(points, anchor_point):
             yield point
 
 
+def hasher(tuples: Tuple[str, str, str]):
+    return hashlib.sha512(",".join(tuples).encode("utf-8")).hexdigest()
+
 def hashPoints(pointA, pointB):
     # return hash(
     #     (
@@ -109,9 +114,9 @@ def hashPoints(pointA, pointB):
     # )
     return hash(
         (
-            round(pointA[0].item(), 1),
-            round(pointB[0].item(), 1),
-            round((pointB[1] - pointA[1]).item(), 1),
+            (pointA[0].item()),
+            (pointB[0].item()),
+            ((pointB[1] - pointA[1]).item()),
         )
     )
 

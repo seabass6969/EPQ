@@ -23,6 +23,7 @@ def search_points(searchPairs):
     """
     conn = connection()
     time = {}
+    conn.execute("VACUUM;")
     conn.execute("PRAGMA synchronous = NORMAL;")
     if settings.DEBUG:
         for pairs in tqdm.tqdm(searchPairs):
@@ -34,7 +35,7 @@ def search_points(searchPairs):
                     time[r[0]] = []
                 time[r[0]].append(r[1])
     else:
-        for pairs in searchPairs:
+        for pairs in tqdm.tqdm(searchPairs):
             result = conn.execute(
                 f'SELECT Song_ID, Time_Offset FROM points WHERE Hash="{pairs[1]}";'
             ).fetchall()
@@ -73,11 +74,10 @@ def new_song_entry(song_name, song_author, song_file, License, song_url, genre):
 def adding_entry(song_name, song_author, song_file, song_start_directory, License, song_url, genre):
     uuids = new_song_entry(song_name, song_author, os.path.join(song_start_directory, song_file), License, song_url, genre)
     pairs = list(spectrogram_analysis.getPairs(song_file, song_start_directory, uuids))
-    # unique = []
-    # for pair in pairs:
-    #     if pair not in unique:
-    #         unique.append(pair)
-    # print(len(unique))
+    #unique = []
+    #for pair in pairs:
+    #    if pair not in unique:
+    #        unique.append(pair)
     write_points(pairs)
     # if settings.DEBUG:
     print("I wrote {} points".format(len(pairs)))

@@ -9,9 +9,11 @@ def scoring_song(time_offsets):
     time_gap = 0.5
     bin = numpy.arange((min(time_offsets)), (max(time_offsets)) + 1 + time_gap)
     counts, bins = numpy.histogram(time_offsets, bins=bin)
-    print(time_offsets)
-    plt.stairs(counts, bins)
-    plt.show()
+    if settings.DEBUG:
+        print(time_offsets)
+    if settings.PRODUCE_DIAGRAM:
+        plt.stairs(counts, bins)
+        plt.show()
     return numpy.max(counts)
 
 def searching(file_name, file_start):
@@ -28,6 +30,6 @@ def searching(file_name, file_start):
 
 
 if __name__ == "__main__":
-    matched = searching("Divertismento_shifted.wav", "test/new_test/")
+    matched = searching("27_tapping.wav", "test/new_test/")
     print(matched)
 # "songs/dance_of_the_sugar_plum_fairy.ogg"
