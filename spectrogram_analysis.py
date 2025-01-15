@@ -114,9 +114,9 @@ def hashPoints(pointA, pointB):
     # )
     return hash(
         (
-            (pointA[0].item()),
-            (pointB[0].item()),
-            ((pointB[1] - pointA[1]).item()),
+            round(pointA[0].item(),0),
+            round(pointB[0].item(),0),
+            round((pointB[1] - pointA[1]).item(), 1),
         )
     )
 

@@ -16,4 +16,4 @@ ACTUAL_TIME_GAP = 0.05
 fft_window_size = 0.2
 box_size = 30
 # point_efficiency = 0.6
-point_efficiency = 0.6
+point_efficiency = 0.8
