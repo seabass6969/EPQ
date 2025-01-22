@@ -1,0 +1,3 @@
+[submodule "music_recognition_web_portal"]
+	path = music_recognition_web_portal
+	url = https://github.com/seabass6969/music_recognition_web_portal.git
