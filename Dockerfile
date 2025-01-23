@@ -11,4 +11,5 @@ RUN pip install -r requirements.txt
 
 RUN npm --prefix music_recognition_web_portal install
 RUN npm --prefix music_recognition_web_portal run build
-RUN node --prefix music_recognition_web_portal/build
+EXPOSE 3000
+CMD ["node", "--prefix", "music_recognition_web_portal/build"]
