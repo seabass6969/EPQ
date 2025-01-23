@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y python3 python3-pip nodejs
 
 WORKDIR /work
 COPY . /work
-RUN python -m venv .venv
+RUN python3 -m venv .venv
 
 RUN source .venv/bin/activate
 RUN pip install -r requirements.txt
