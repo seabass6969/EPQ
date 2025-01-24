@@ -172,5 +172,5 @@ cython_debug/
 # database file 
 # songs
 songs/
-database.sqbpro
+database/
 database.sqlite
