@@ -1,16 +1,14 @@
-FROM ubuntu:22.04
+FROM node:22-alpine
 
-RUN apt-get update && apt-get install -y python3 python3-pip nodejs npm
+RUN apk add --no-cache python3 py3-pip gcc
 
 WORKDIR /work
 COPY . /work
-# RUN python3 -m venv .venv
+RUN python3 -m venv /opt/venv
 
-# RUN source .venv/bin/activate
-# I don't think it need virtual environment anyways
-RUN pip install -r requirements.txt
+RUN /opt/venv/bin/pip install -r requirements.txt
 
 RUN npm --prefix music_recognition_web_portal install
 RUN npm --prefix music_recognition_web_portal run build
 EXPOSE 3000
-CMD ["node", "--prefix", "music_recognition_web_portal/build"]
+CMD ["node", "music_recognition_web_portal/build"]
