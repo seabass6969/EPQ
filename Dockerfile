@@ -8,7 +8,7 @@ RUN python3 -m venv /opt/venv
 
 RUN /opt/venv/bin/pip install -r requirements.txt
 
-RUN cp /work/build.ts /work/music_recognition_web_portal/src/lib/build.ts
+RUN cp /work/prod_build.ts /work/music_recognition_web_portal/src/lib/build.ts
 RUN npm --prefix music_recognition_web_portal install
 RUN npm --prefix music_recognition_web_portal run build
 EXPOSE 3000
