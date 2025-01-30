@@ -15,5 +15,6 @@
 
 *Note: The* ~~crossed out~~ *folders are not included because it requires manual download*
 # Instructions for building the software 
-
+With docker and git install type in command line:
 `git clone --recurse-submodules -j8 https://github.com/seabass6969/EPQ`
+`sudo docker compose up -d --force-recreate --build`
