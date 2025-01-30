@@ -1,20 +1,28 @@
 \documentclass[twoside]{report}
-\title{How does Industrial leader create music recognition tools for the wide public.}
-\author{Suen Hang Cephas Yeung}
-\date{1/3/2025}
-
+\title{To explore the mechanism that allows music recognition apps to work. }
+\author{Cephas Yeung}
+\date{28/4/2025}
 \input{seabass.tex}
 \begin{document}
 
 \maketitle
 \tableofcontents
+\newpage
+\input{main_text.tex}
+\addtocontents{toc}{\vspace{1em}\hrule\vspace{1em}}
 
-\chapter{Introduction}
-This is an introduction
-\chapter{Normal}
-\section{sections}
-test
 
+%TC:ignore
+\appendix
 \bibliographystyle{plain}
-\bibliography{ref}
+\bibliography{bib/bib.bib}
+
+\chapter{Figures}
+\input{overall_architecture}
+\chapter{Testing results}
+\input{testing_result}
+\chapter{Meeting logs}
+\input{meeting_logs/meeting1}
+\input{meeting_logs/meeting2}
+%TC:endignore
 \end{document}

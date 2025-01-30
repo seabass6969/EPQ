@@ -1,0 +1,61 @@
+\chapter*{Abstract}
+We recreated an algorithm used to recognise music. 
+
+The algorithm first fingerprints all the songs by create a spectrogram, generate peaks point inside it. To create an almost unique hash point where it's inserted inside a database. 
+
+When record songs through the interface, the algorithm repeats the process of fingerprinting, but instead compare hash value with matched songs
+\chapter{Introduction}
+
+In modern society there are billions of songs created by different artists and different styles of music. Most of us might have already heard or have used the music recognition app Shazam, or something similar on your mobile phone when you are at a restaurant or Café because you want to search for what song it was playing. 
+
+From using a very concrete source of a pattern created by the original founder and Chief Scientist of Shazam \footnote{Now part of Apple Inc. As they are acquired by Apple.}\cite{noauthor_avery_nodate}.
+
+This source allows a great understanding of the background information of the program. 
+
+My aim for this research is to understand and replicate how modern day music recognition algorithms (explain in footnote) work. 
+
+During the creation process, it uses different resources to make the resource and also methods to test the success criteria set out by the algorithm. 
+
+In conclusion, the program are successful.
+\chapter{Methodology / Design Choice}
+The artefact is separated in different pieces. As illustrated in the figures inside \hyperref[fig:overall_arch]{Appendix A:Figure 1}. 
+
+The software is run inside a container as the pattern suggested that although not limited to any particular system, it is preferred for it to be run in a “Distributed system”\footnote{Computer systems whose intercommunicating components are located on different networked computers\cite{noauthor_distributed_2024}}. But by containerize the program, it allows it to happen.
+
+Next, the program is separated into two parts. The Web app part is for the user to interact with the algorithm graphically. 
+
+And the main algorithm are produced using python. Inside the program, the library of NumPy\cite{harris_array_2020} to analysis the data.
+
+The program is replicated as described in the pattern by first recording the audio, this is done through the web app. 
+
+All the original audio is first sent to an algorithm to "fingerprint" the piece of music. The algorithm are consist of spectrogram produced from the SciPy signal library where it uses STFT\footnote{Short-time Fourier Transform}.\cite{virtanen_scipy_2020} An array of data illustrated in the figure. <Figure> This arrays of data are being filtered through maximum filter in the SciPy library \cite{virtanen_scipy_2020}. Which is illustrated in the figures.
+
+The two arrays are compared to use to pick peak points. The peaks are used to construct the pairs shown here. <Figure>
+
+The pairs of points are then hashed using the default hashing function\footnote{Hashing function is a set of things to do to make an output that is always the same length from some other input data.\cite{noauthor_hash_2024}} from python which generate an almost unique hash values in the program.
+
+The hash point is than placed into a database alongside with its song name and where the point A's real time. The song data (metadata) such as author and copyright detail are placed in a different database.
+
+When the user record the sample through the user interface created, the recording sample are send to the server. It is processed where it applies the same algorithm from above, it first construct a spectrogram, create and compare it with a filtered spectrogram, peak point are picked and hash values are created, the hash value are then searched inside the `points` table. 
+
+The list of successfully matched song are than going through the process of "scoring". The score are calculated by constructing a histogram with the point A's real time value. The score are assigned to each songs with the highest value in each histogram. This is because the peak point of some songs are the same for a completely different song. And this includes background noise where the algorithm could mistake it to be a different song. Illustrated in the <figure>.
+
+\cite{wang_systems_2013}\cite{macleod_abracadabra_nodate}\cite{yang_music_2001}
+
+\chapter{Testing method}
+The program is tested using the method described in this paper.\cite{yang_music_2001} We used most of the songs in fingerprinted collection because that reduce the likelihood of a flawed test. We mainly used classical music because there is lower chance for creating copyright issues.
+
+The test have increasing level of difficulty:
+\begin{itemize}
+    \item Test 1: original song file (unmodified digital file)
+    \item Test 2: original song file but shifted 
+    \item Test 3: original song file but with controlled level of noise. (E.g.: a sine wave)
+    \item Test 4: original song file but played over the air and recorded.
+    \item Test 5: original song but perform by different people.
+    \item Test 6: transposed song \label{t:test_transposed}
+\end{itemize}
+The test results is inside \ref{fig:table_of_testing_result}.
+The program overall worked as expected but test 6 doesn't work because this algorithm is not designed for this.
+
+\chapter{Discussion}
+As discussed in \hyperref[t:test_transposed]{the test conducted}, this artefact is not capable to detect a transposed song. Because this song only matches the exact frequency that the song produces. 
