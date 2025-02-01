@@ -24,7 +24,7 @@
 % https://github.com/seabass6969/latex-template
 \usepackage[utf8]{inputenc}
 
-\usepackage{amsmath, amsfonts, amsthm, graphicx, geometry, lipsum}
+\usepackage{amsmath, amsfonts, amsthm, graphicx, geometry, lipsum, subfigure}
 \usepackage{blindtext, titlesec}
 \makeatletter
 \let\runauthor\@author
@@ -34,6 +34,7 @@
 \usepackage{appendix}
 
 \usepackage[nottoc, numbib]{tocbibind}
+
 \usepackage{verbatim, fancyvrb}
 \usepackage{fancyhdr, lastpage}
 \pagestyle{fancy}
@@ -55,8 +56,13 @@
 \hypersetup {
     colorlinks=true,
     linkcolor=blue,
-    urlcolor=red
+    urlcolor=red,
+    citecolor=blue
 }
 \renewcommand\theHtable{Appendix.\thetable}
+
+\newcommand{\trademark}{\textsuperscript{\textregistered}}
+\newcommand\TBox[3][]{%
+  \tikz\node[draw,ultra thick,text width=#2,align=left,#1] {#3};}
 
 % \patchcmd{\thebibliography}{\chapter*}{\section}{}{}

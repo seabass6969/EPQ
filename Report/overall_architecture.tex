@@ -1,8 +1,38 @@
-\begin{figure}[h!]
+\begin{figure}[ht!]
+    \center
+
+\TBox[fill=yellow!30]{10cm}{
+Running inside a Linux VM\\
+  \TBox[fill=blue!30]{9.5cm}{
+      Contained Program (Using Docker)\\[1ex]
+  \TBox[fill=green!30]{4cm}{
+  Web app (build using SvelteKit) (Typescript)
+    \includegraphics[scale=0.1]{screenshots/main_screen.png}
+}\quad \TBox[fill=red!30]{4cm}{main algorithm (Build using python)} } }
+\caption{Overall Architecture}
 \label{fig:overall_arch}
-\begin{tikzpicture}
-\node[draw] at (0,0) {Contained Program (Using Docker)};
-\node[draw] at (0,-1) {Web app (Build using Svelte)};
-\node[draw] at (0, -2) {Back bone of the program (Build using python)};
-\end{tikzpicture}
+\end{figure}
+
+\begin{figure}[ht!]
+    \center
+    \begin{tikzpicture}
+        \draw [draw, ultra thick, fill=green!30] (-7,0) rectangle (-4,8) node[pos=.5] {
+            web app 
+        } node[above] {0. User pressed start record button (\includegraphics[scale=0.05]{screenshots/record_button_idle.png})};
+        \draw [draw, ultra thick, fill=red!30] (4,0) rectangle (7,8) node[pos=.5, align=center] {
+            Python Algorithm\\
+            Using SciPy, \\
+            Numpy Library,\\
+            FFmpeg\\
+            \cite{virtanen_scipy_2020, harris_array_2020, ffmpeg_developers_ffmpeg_nodate}
+        };
+        \draw [->, thick, red] (-3.9,7) -- node[above] {1. Ask to create a new folder} (3.9,7);
+        \draw [<-, thick, blue] (-3.9,6) -- node[above] {2. Response success} (3.9,6);
+        \draw [-, thick] (-3.9,5) -- node[above] {3. Recording stopped Automatically or Manually} (3.9,5);
+        \draw [->, thick, red] (-3.9,4) -- node[above] {4. Recorded sample are uploaded to new folder} (3.9,4);
+        \draw [-, thick] (-3.9,3) -- node[above] {5. Sound file are processed} (3.9,3);
+        \draw [<-, thick, blue] (-3.9,2) -- node[above] {6. Results are sent back} (3.9,2);
+    \end{tikzpicture}
+\caption{Overall Architecture (app)}
+\label{fig:overall_arch2}
 \end{figure}

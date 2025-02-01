@@ -6,9 +6,9 @@ The algorithm first fingerprints all the songs by create a spectrogram, generate
 When record songs through the interface, the algorithm repeats the process of fingerprinting, but instead compare hash value with matched songs
 \chapter{Introduction}
 
-In modern society there are billions of songs created by different artists and different styles of music. Most of us might have already heard or have used the music recognition app Shazam, or something similar on your mobile phone when you are at a restaurant or Café because you want to search for what song it was playing. 
+In modern society there are billions of songs created by different artists and different styles of music. Most of us might have already heard or have used the music recognition app Shazam\trademark, or something similar on your mobile phone when you are at a restaurant or Café because you want to search for what song it was playing. 
 
-From using a very concrete source of a pattern created by the original founder and Chief Scientist of Shazam \footnote{Now part of Apple Inc. As they are acquired by Apple.}\cite{noauthor_avery_nodate}.
+From using a very concrete source of a patent created by the original founder and Chief Scientist of Shazam\trademark \footnote{Now part of Apple Inc\trademark.}\cite{noauthor_avery_nodate}.
 
 This source allows a great understanding of the background information of the program. 
 
@@ -20,13 +20,13 @@ In conclusion, the program are successful.
 \chapter{Methodology / Design Choice}
 The artefact is separated in different pieces. As illustrated in the figures inside \hyperref[fig:overall_arch]{Appendix A:Figure 1}. 
 
-The software is run inside a container as the pattern suggested that although not limited to any particular system, it is preferred for it to be run in a “Distributed system”\footnote{Computer systems whose intercommunicating components are located on different networked computers\cite{noauthor_distributed_2024}}. But by containerize the program, it allows it to happen.
+The software is run inside a container as the patent suggested that although not limited to any particular system, it is preferred for it to be run in a “Distributed system”\footnote{Computer systems whose intercommunicating components are located on different networked computers\cite{noauthor_distributed_2024}}. But by containerize the program, it allows it to happen.
 
 Next, the program is separated into two parts. The Web app part is for the user to interact with the algorithm graphically. 
 
 And the main algorithm are produced using python. Inside the program, the library of NumPy\cite{harris_array_2020} to analysis the data.
 
-The program is replicated as described in the pattern by first recording the audio, this is done through the web app. 
+The program is replicated as described in the patent by first recording the audio, this is done through the web app. 
 
 All the original audio is first sent to an algorithm to "fingerprint" the piece of music. The algorithm are consist of spectrogram produced from the SciPy signal library where it uses STFT\footnote{Short-time Fourier Transform}.\cite{virtanen_scipy_2020} An array of data illustrated in the figure. <Figure> This arrays of data are being filtered through maximum filter in the SciPy library \cite{virtanen_scipy_2020}. Which is illustrated in the figures.
 
@@ -36,12 +36,11 @@ The pairs of points are then hashed using the default hashing function\footnote{
 
 The hash point is than placed into a database alongside with its song name and where the point A's real time. The song data (metadata) such as author and copyright detail are placed in a different database.
 
-When the user record the sample through the user interface created, the recording sample are send to the server. It is processed where it applies the same algorithm from above, it first construct a spectrogram, create and compare it with a filtered spectrogram, peak point are picked and hash values are created, the hash value are then searched inside the `points` table. 
+When the user record the sample through the user interface created, the recording sample is sent to the server. It is processed where it applies the same algorithm from above. First it construct a spectrogram, create and compare it with a filtered spectrogram, peak point are picked and hash values are created, the hash value are then searched inside the `points` table. 
 
-The list of successfully matched song are than going through the process of "scoring". The score are calculated by constructing a histogram with the point A's real time value. The score are assigned to each songs with the highest value in each histogram. This is because the peak point of some songs are the same for a completely different song. And this includes background noise where the algorithm could mistake it to be a different song. Illustrated in the <figure>.
+The list of successfully matched song are than going through the process of "scoring". The score calculated by constructing a histogram with the point A's real time value. The score is assigned to each song with the highest value in each histogram. This is because the peak point of some songs are the same for a completely different song. And this includes background noise where the algorithm could mistake it to be a different song. Illustrated in the <figure>.
 
-\cite{wang_systems_2013}\cite{macleod_abracadabra_nodate}\cite{yang_music_2001}
-
+\cite{wang_systems_2013,macleod_abracadabra_nodate,yang_music_2001}
 \chapter{Testing method}
 The program is tested using the method described in this paper.\cite{yang_music_2001} We used most of the songs in fingerprinted collection because that reduce the likelihood of a flawed test. We mainly used classical music because there is lower chance for creating copyright issues.
 
@@ -59,3 +58,7 @@ The program overall worked as expected but test 6 doesn't work because this algo
 
 \chapter{Discussion}
 As discussed in \hyperref[t:test_transposed]{the test conducted}, this artefact is not capable to detect a transposed song. Because this song only matches the exact frequency that the song produces. 
+
+One way that the problem can solve is to change the mechanism entirely to not rely purely on the raw frequency data, instead by using the MIDI file of the song which contains a series of message like note. \cite{amandaghassaei_what_nodate} Then from it, create a database of melody. Which can recognise songs from it by recording the song and passing into the algorithm to process for results. This allows a wider error range for recognizing song such as made from "humming". \cite{ghias_query_1995} However, due to the time constraint of the project and we are trying to produce a replica of Shazam\trademark. This algorithm might be much more costly because it requires the raw MIDI file or a construction of the MIDI file first, similarly performance might be poor from using MIDI file database.\cite{yang_music_2001}
+\chapter{Conclusion}
+
