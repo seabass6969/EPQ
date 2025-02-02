@@ -5,19 +5,19 @@
 
 \input{seabass.tex}
 
+\addbibresource{Shazam/Shazam.bib}
 \begin{document}
 \maketitle
 \tableofcontents
 \newpage
 \input{main_text.tex}
-\addtocontents{toc}{\vspace{1em}\hrule\vspace{1em}}
 
+\printbibliography[heading=bibintoc, title={Bibliography}]
+\addtocontents{toc}{\vspace{1em}\hrule\vspace{1em}}
 
 %TC:ignore
 \appendix
-\bibliographystyle{agsm}
-\bibliography{bib/bib.bib}
-
+% \bibliographystyle{plain}
 \chapter{Figures}
 \input{overall_architecture}
 \chapter{Testing results}
