@@ -1,49 +1,39 @@
 \chapter*{Abstract}
 \textit{For the purpose of this project, the replica of a music recognition app is created.}
 
-\textit{The algorithm first creates an almost unique fingerprint for each audio file from the spectrogram. Which the fingerprints are added to a database as a hashed value.}
+\textit{The algorithm first creates a fingerprint for each audio file from its spectrogram. Which are added to a database as a hashed value.}
 
 \textit{When record songs through the interface, the algorithm repeats the process of fingerprinting, but instead compare hash value with matched songs.}
 \chapter{Introduction}
 
-In the modern world, billions and billions of songs are created, and you might want to recognize song that you don't know. This article answer how does modern music recognition app work.
+In the modern world, billions of songs are created, the demand for recognising music increases. This article answer how does modern music recognition app work.
 
-My aim for this research is to understand and replicate how modern day music recognition algorithms work. 
+Aim for this research is to understand and replicate how modern day music recognition algorithms work. 
 
-From using a very concrete source of a patent created by the original founder and Chief Scientist of Shazam\trademark (Now part of Apple Inc\trademark.)\cite{newnham_interview_2023}.
+From using a very concrete and credible source of a patent created by the original founder and Chief Scientist of Shazam\trademark (Now part of Apple Inc\trademark.) \cite{newnham_interview_2023} which Shazam\trademark is the industry leader in music recognition. The patent are cited 771 times. \cite{wang_systems_2013} However, due to the age of the source, some information might not be as relevant.
 
-This source allows a great understanding of the background information of the program. 
+This source creates how it was made. 
 
 During the creation process, it was created using different resources to make the resource (e.g: patent, research paper) and also methods to test the success criteria set out by the algorithm. 
 
-In conclusion, the program is successful.
 \chapter{Methodology / Design Choice}
 The artefact is separated in different pieces. (Structure: \autoref{fig:overall_arch}).
 
-The software is run inside a container as the patent suggested that although not limited to any particular system, it is preferred for it to be run in a “Distributed system”. But by containerize the program, it allows it to happen.
+The software is run inside a container as the patent suggested. By containerizing the program (using docker). It allows it to be run in a "Distributed system".
 
-Next, the program is separated into two parts. The web app part allows user to interact graphically. (Screenshots: \autoref{fig:screenshot:main}). And most importantly the main algorithm.
+Next, the program is separated into two parts. The web app allows user to interact graphically. (Screenshots: \autoref{fig:screenshot:main}). And the main algorithm allows the processing of the audio.
 
-The program first records the audio, this is done through the web app.  
+When the program first register the song in to the database. It will go through the process of "fingerprinting" the piece of music. The algorithm consist of spectrogram produced from the SciPy signal library \cite{virtanen_scipy_2020} where it uses STFT (Short-time Fourier Transform is a variation of the Fast Fourier transform built for making spectrogram). In this case, Fast Fourier transform are used to convert from time and amplitudes domain to a representation in the frequency domain. Illustrated in \autoref{fig:fft}. \cite{noauthor_fast_2025} And the data are processed using the library of NumPy. \cite{harris_array_2020}
 
+The spectrogram is being filtered through maximum filter in the SciPy library \cite{virtanen_scipy_2020}. The two spectrograms are compared to use to pick peak points. The peaks used to construct the pairs.  The pairs of points hashed using the default hashing function (Hashing function is a set of things to do to make an output that is always the same length from some other input data. Hash functions and their associated hash tables are used in data storage to access data in a fast time. \cite{noauthor_hash_2024}) from python which generate an almost unique hash values in the program.  Illustrated in \autoref{fig:listfiltering}, \autoref{fig:hash} and \autoref{fig:pairspicking}.
 
-And the main algorithm collects the audio file and sent to an algorithm to "fingerprint" the piece of music. The algorithm consist of spectrogram produced from the SciPy signal library \cite{virtanen_scipy_2020} where it uses STFT (Short-time Fourier Transform is a variation of the Fast Fourier transform built for making spectrogram). In this case, Fast Fourier transform are used to convert from time and amplitudes domain to a representation in the frequency domain. It's illustrated in \autoref{fig:fft}. \cite{noauthor_fast_2025} And the data are processed using the library of NumPy\cite{harris_array_2020}. 
+The hash point is than placed into a database alongside with its song name and where the point A's real time. The song data (metadata) such as author and copyright detail are placed in a different database. Database example: \autoref{fig:database}.
 
+When the user record the sample through the user interface from the web app, the recording sample is sent to the server. It is processed where it applies the same algorithm from above. First it constructs a spectrogram, peak point are picked and hash values are created, the hash value searched inside the $points$ table. Same as the bottom row in \autoref{fig:hash}.
 
-An array of data from the spectrogram are being filtered through maximum filter in the SciPy library \cite{virtanen_scipy_2020}. The two arrays are compared to use to pick peak points. The peaks are used to construct the pairs. Which is illustrated in \autoref{fig:listfiltering} and \autoref{fig:pairspicking}.
-
-The pairs of points hashed using the default hashing function (Hashing function is a set of things to do to make an output that is always the same length from some other input data. Hash functions and their associated hash tables are used in data storage to access data in a fast time. \cite{noauthor_hash_2024}) from python which generate an almost unique hash values in the program. \autoref{fig:hash}
-
-
-The hash point is than placed into a database alongside with its song name and where the point A's real time. The song data (metadata) such as author and copyright detail are placed in a different database.
-
-When the user record the sample through the user interface created, the recording sample is sent to the server. It is processed where it applies the same algorithm from above. First it constructs a spectrogram, create and compare it with a filtered spectrogram, peak point are picked and hash values are created, the hash value searched inside the `points` table. 
-
-The list of successfully matched song are than going through the process of "scoring". The score calculated by constructing a histogram with the point A's real time value. The score is assigned to each song with the highest value in each histogram. This is because the peak point of some songs are the same for a completely different song. And this includes background noise where the algorithm could mistake it to be a different song.
-
-\cite{wang_systems_2013,macleod_abracadabra_nodate,yang_music_2001}
+The list of successfully matched song are than going through the process of "scoring". The score calculated by constructing a histogram with the point A's real time value. (The forth column of \autoref{fig:hash}) The highest score would be the correctly matched song. Using score system ensures accuracy results. \cite{wang_systems_2013,macleod_abracadabra_nodate,yang_music_2001}
 \chapter{Testing method}
-The program is tested using the method described in this paper \cite{yang_music_2001} and also a meeting from  \hyperref[meeting:2]{professional}. An evidence from all the song from (most) of the fingerprinted music collection is used to test the program, this is so that it reduce the likelihood of a flawed test. Classical music is used because there is lower chance for creating copyright issues.
+The program is tested using the method described in this paper \cite{yang_music_2001} and also a meeting from \hyperref[meeting:2]{professional}. An evidence from all the song from (most) of the fingerprinted music collection is used to test the program, this is so that it reduce the likelihood of a flawed test. 
 
 The test have increasing level of difficulty:
 \label{chapter:test_methods:methods}
@@ -56,7 +46,8 @@ The test have increasing level of difficulty:
     \item Test 6: transposed song \label{t:test_transposed}
 \end{itemize}
 The test results is inside \autoref{fig:table_of_testing_result}.
-The program overall worked as expected but test 6 doesn't work because this algorithm is not designed for this.
+
+The program overall worked as expected but test 5,6 doesn't work because this algorithm is not designed for this.
 
 \chapter{Discussion}
 
@@ -64,9 +55,13 @@ As discussed in \hyperref[t:test_transposed]{the test conducted}, this artefact 
 
 One way that the problem can solve is to change the mechanism entirely to not rely purely on the raw frequency data, instead by using the MIDI file of the song which contains a series of message like note. \cite{amandaghassaei_what_nodate} Then from it, create a database of melody. Which can recognise songs from it by recording the song and passing into the algorithm to process for results. This allows a wider error range for recognizing song such as made from "humming". \cite{ghias_query_1995, yang_music_2001}. However, this would make the algorithm costly and slow to run.
 
-In addition, extra research might be needed to improve the speed, making it more commercially viable which is the goal set out by the Shazam\trademark team. \cite{wang_systems_2013}
+In addition, extra research might be needed to improve the speed, making it more commercially viable which is the goal set out by the Shazam\trademark team where they designed it so that it's high performance. \cite{wang_systems_2013}
 
 The research can also be further extended not limited to searching for songs, such as searching for patten inside picture or video.
+
+In addition, this project only uses copyright-free music, as there would be legal and ethical implication to using contemporary music.
+
+The biggest ethical implication that most music recognition app faced are privacy violation, as some app record the audio in the background even without user interaction. The project would not be concerned about this because it only records when user intended to.
 
 \chapter{Conclusion}
 
