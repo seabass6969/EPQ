@@ -25,7 +25,7 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage{amsmath, amsfonts, amsthm, graphicx, geometry, lipsum, subfigure}
-\usepackage{blindtext, titlesec}
+\usepackage{blindtext}
 \makeatletter
 \let\runauthor\@author
 \let\runtitle\@title
@@ -57,6 +57,7 @@
 \usepackage{xcolor-material}
 \usepackage[svgnames]{xcolor}
 \usepackage{tikz, tcolorbox}
+\tcbuselibrary{listings,breakable}
 \usepackage{longtable}
 \usepackage{hyperref}
 
@@ -64,7 +65,7 @@
     colorlinks=true,
     linkcolor=blue,
     urlcolor=red,
-    citecolor=blue
+    citecolor=RoyalBlue
 }
 \renewcommand\theHtable{Appendix.\thetable}
 
@@ -75,3 +76,40 @@
 
 % \usepackage{harvard}
 \patchcmd{\thebibliography}{\chapter*}{\section}{}{}
+
+\usetikzlibrary{matrix}
+\definecolor{15}{HTML}{000000}
+\definecolor{14}{HTML}{111111}
+\definecolor{13}{HTML}{222222}
+\definecolor{12}{HTML}{333333}
+\definecolor{11}{HTML}{444444}
+\definecolor{10}{HTML}{555555}
+\definecolor{9}{HTML}{666666}
+\definecolor{8}{HTML}{777777}
+\definecolor{7}{HTML}{888888}
+\definecolor{6}{HTML}{999999}
+\definecolor{5}{HTML}{AAAAAA}
+\definecolor{4}{HTML}{BBBBBB}
+\definecolor{3}{HTML}{CCCCCC}
+\definecolor{2}{HTML}{DDDDDD}
+\definecolor{1}{HTML}{EEEEEE}
+\definecolor{0}{HTML}{FFFFFF}
+
+\tikzset{ 
+table/.style={
+  matrix of nodes,
+  row sep=-\pgflinewidth,
+  column sep=-\pgflinewidth,
+  nodes={rectangle,draw=black,fill=0,minimum size=1cm,align=center},
+  nodes in empty cells
+  }
+}
+\tikzset{
+    block/.style ={ rectangle, 
+draw, fill=white,  text centered, minimum size=1cm, nodes in empty cells,
+  row sep=-\pgflinewidth,
+  column sep=-\pgflinewidth,
+fill=green}
+    }
+
+\usetikzlibrary{shapes.misc}
