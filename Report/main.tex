@@ -1,5 +1,5 @@
-\documentclass[twoside]{report}
-\usepackage{blindtext}
+\documentclass[]{report}
+
 \title{To explore the mechanism that allows music recognition apps to work. }
 \author{Cephas Yeung}
 \date{10/2/2025}
@@ -8,9 +8,10 @@
 
 \addbibresource{Shazam/Shazam.bib}
 \begin{document}
+
 \begin{titlepage}
    \centering
-   {\Large \bfseries \spacedallcaps{\runtitle} \bigbreak}
+   {\Large \bfseries {\runtitle} \bigbreak}
    {\scriptsize \small{\runauthor} \bigbreak}
    \includegraphics[scale=0.3]{screenshots/main_screen.png}\par\vspace{1cm}
 \end{titlepage}
@@ -22,7 +23,6 @@
 \printbibliography[heading=bibintoc, title={Bibliography}]
 \addtocontents{toc}{\vspace{1em}\hrule\vspace{1em}}
 
-%TC:ignore
 \appendix
 % \bibliographystyle{plain}
 \chapter{Figures}
@@ -35,6 +35,15 @@
 \chapter{Meeting logs}
 \input{meeting_logs/meeting1}
 \input{meeting_logs/meeting2}
+\chapter{Critical Bibliography}
+\input{critical_bib.tex}
+\chapter{Timetable}
+See the landscape table file after this page.
+\begin{itemize}
+    \item \textcolor{Green}{Green done means on time}
+    \item \textcolor{Orange}{Orange done means not on time}
+\end{itemize}
+I choose to use timetable target set by week because it allows for more streamline approach to time management.
+\includepdf[pages=-, landscape=true]{timetable_exported.pdf}
 
-%TC:endignore
 \end{document}

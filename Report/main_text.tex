@@ -31,7 +31,7 @@ The hash point is than placed into a database alongside with its song name and w
 
 When the user record the sample through the user interface from the web app, the recording sample is sent to the server. It is processed where it applies the same algorithm from above. First it constructs a spectrogram, peak point are picked and hash values are created, the hash value searched inside the $points$ table. Same as the bottom row in \autoref{fig:hash}.
 
-The list of successfully matched song are than going through the process of "scoring". The score calculated by constructing a histogram with the point A's real time value. (The forth column of \autoref{fig:hash}) The highest score would be the correctly matched song. Using score system ensures accuracy results. \cite{wang_systems_2013,macleod_abracadabra_nodate,yang_music_2001}
+The list of successfully matched song are than going through the process of "scoring". The score calculated by constructing a histogram with the point A's real time value. (The forth column of \autoref{fig:hash}) The highest score would be the correctly matched song. Using score system ensures accuracy results. \cite{wang_systems_2013,macleod_abracadabra_nodate,yang_music_2001,wang_industrial-strength_2003}
 \chapter{Testing method}
 The program is tested using the method described in this paper \cite{yang_music_2001} and also a meeting from \hyperref[meeting:2]{professional}. An evidence from all the song from (most) of the fingerprinted music collection is used to test the program, this is so that it reduce the likelihood of a flawed test. 
 
