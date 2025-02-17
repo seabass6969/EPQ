@@ -4,3 +4,6 @@
 [submodule "music_recognition_main"]
 	path = music_recognition_main
 	url = https://github.com/seabass6969/music_recognition_main
+[submodule "music_recognition_presentation"]
+	path = music_recognition_presentation
+	url = https://github.com/seabass6969/music_recognition_presentation
