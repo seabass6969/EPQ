@@ -5,7 +5,7 @@
 | 📁 `music_recognition_main` | Folder that includes the main algorithm |
 | 📁 `music_recognition_web_portal` | Folder that includes the interaction part (the website that serves the algorithm) |
 | 📁 `Report` | The Final Report Source |
-| 📁 `Presentation` | The Final Presentation Source |
+| 📁 `music_recogition_presentation` | The Final Presentation Source |
 | 📁 ~~`database`~~ | ~~The database folder~~ |
 | 📁 ~~`songs`~~ | ~~The songs source folder + test set~~ |
 | 🗄️ `requirements.txt` | packages and dependency required |
