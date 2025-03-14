@@ -24,6 +24,8 @@
 % https://github.com/seabass6969/latex-template
 \usepackage[utf8]{inputenc}
 
+\usepackage{pdflscape}
+
 \usepackage{amsmath, amsfonts, amsthm, graphicx, geometry, lipsum, subfigure}
 \usepackage{blindtext}
 \makeatletter
@@ -37,7 +39,7 @@
 \usepackage[nottoc, numbib]{tocbibind}
 \usepackage{csquotes}
 % \usepackage[style=ibid,backend=bibtex]{biblatex}
-\usepackage[backend=biber,authordate-trad, url=false, doi=false, isbn=false]{biblatex-chicago}
+\usepackage[backend=biber,authordate-trad]{biblatex-chicago}
 % \usepackage[comma]{natbib}
 % \usepackage[
 %   backend=biber,
@@ -122,3 +124,12 @@ fill=green}
 \pgfplotsset{width=7cm,compat=1.8}
 
 \usepackage{siunitx}
+\newcommand{\sourcecite}[1] {
+Title: \citetitle{#1}
+\newline
+Author: \citeauthor{#1}
+\newline
+Issue Date: \citedate{#1}
+\newline
+URL: \citeurl{#1}
+}

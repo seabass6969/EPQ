@@ -10,7 +10,7 @@ In the modern world, billions of songs are created, the demand for recognising m
 
 The aim for this research is to understand and replicate how modern day music recognition algorithms work. 
 
-There are starter knowledge that I am required to know first, for example: what is Fourier Transform. I used video tutorial from the Washington University to understand how it works. \footcite{steve_brunton_fast_2020} I ended up using a code from \cite{virtanen_scipy_2020} to complete the task of doing Fourier Transform.
+There are starter knowledge that I am required to know first, for example: what is Fourier Transform. I used video tutorial from the Washington University to understand how it works. \footcite{steve_brunton_fast_2020} I ended up using a code from (\cite{virtanen_scipy_2020}) to complete the task of doing Fourier Transform.
 
 I used a very concrete and credible source of a patent created by the original founder and Chief Scientist of Shazam\trademark (Now part of Apple Inc\trademark.) \footcite{newnham_interview_2023} which Shazam\trademark is the industry leader in music recognition. The patent created by the creator of Shazam are cited 771 times by other companies and organisation to create other resources. \footcite{wang_systems_2013} However, due to the age of the source, some information might not be as relevant.
 
@@ -92,12 +92,24 @@ Having upper limit allows the program to not create too many pairs of values, as
 
 Having lower limit allows points that are nearly next to each other to be omitted from pairing up, as some recording, there are imperfection in intonation or sound attenuation over distances when recording.
 
-I also discovered from creating the program, rounding up the frequency and the time value are required for the algorithm to work properly, this might be due to different microphone in different device records slightly differently, and their electrical design might be different. And also as sound wave propagates for some distances through the atmosphere, high-frequency components become more attenuated than low-frequency ones due to heat conduction, shear viscosity, and relaxation losses. This is noticeable after $>15 \unit{\meter}$. \footcite{spiousas_sound_2017}
+I also discovered from creating the program, rounding up the frequency and the time value are required for the algorithm to work properly. This is discovered during the creation phase of the project as I discussed with the professional (\autoref{section:meeting:pro}). This might be due to different microphone in different device records slightly differently, and their electrical design might be different. And also as sound wave propagates for some distances through the atmosphere, high-frequency components become more attenuated than low-frequency ones due to heat conduction, shear viscosity, and relaxation losses. This is noticeable after $>15 \unit{\meter}$. \footcite{spiousas_sound_2017}
 
 \section{Material selection}
 Because this algorithm requires a library of song to demonstrate its effectiveness. I choose to use the library of song from Kevin MacLeod, all of his song library are copyright free and licensed under \textit{the Creative Commons Attributions}. This is to avoid the copyright issue as I might infringe the \textit{Copyright, Designs and Patents Act 1988}, section 47 as \textit{"copying the material"}, as the algorithm are required to download the music and analysis it from it placing it inside the database. 
 
 The logo in the web app are also downloaded from the \textit{Google Material Symbols and Icons} as they are licensed under free and open source licence of \textit{Apache Licence 2.0}. And I think the logo from the library create a more user-friendly way of interacting the App.
+
+\section{Extra investigation}
+I faced challenge during the creation process, due to random noise in the sample of the audio during the fingerprinting process, I wasn't able to block the random noise in the sample, because of this when the program is sampling "Nothing" just background noise, it would appear to the user that there is song playing in the background with a random results. 
+
+I fixed this problem by using a mathematical concept called \\
+There are also places where I did to avoid errors in the program such as at the start the user can record sample of the music that have a short duration, this would not be effective as the program would not be able to recognise songs.
+\begin{figure}
+    \includegraphics[scale=0.1]{screenshots/unrecognizable_tooshort.png} 
+    \centering
+    \caption{The error message when the user record songs that is too short.}
+    \label{fig:error:short}
+\end{figure}
 
 \chapter{Testing method}
 The program is tested using the method described in this paper \footcite{yang_music_2001} and also a meeting from \hyperref[meeting:2]{professional}. An evidence from all the song from (most) of the fingerprinted music collection is used to test the program, this is so that it reduce the likelihood of a flawed test. 
@@ -116,6 +128,9 @@ The test results is inside \autoref{fig:table_of_testing_result}.
 
 The program overall worked as expected but test 5,6 doesn't work because this algorithm is not designed for this.
 
+\chapter{Extra Consideration}
+\section{Privacy}
+During the creation process, I took ethical issue as a high priority such as taking GDPR in to consideration. So I created a dedicated page for privacy concerns
 \chapter{Discussion}
 
 As discussed in \hyperref[t:test_transposed]{the test conducted}, this artefact is not capable to detect a transposed song. Because this song only matches the exact frequency that the song produces. 
