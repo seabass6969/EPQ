@@ -1,21 +1,22 @@
 \chapter*{Abstract}
 \textit{For the purpose of this project, the replica of a music recognition app is created.}\\
 \textit{The algorithm first creates a fingerprint for each audio file in its spectrogram. Which are added to a database as a hashed value.}\\
-\textit{When record songs through the interface, the algorithm repeats the fingerprinting process, but instead compares the hash value with the matched songs.}\\
-\textit{During the research phase there are multiple areas that require extra research, such as testing the program and solving unexpected errors.}
+\textit{When song are recorded through the interface, the algorithm repeats the fingerprinting process, but instead compares the hash value with the matched songs.}\\
+\textit{During the research phase there are multiple areas that require extra research, such as testing the program and solving unexpected errors.}\\
+\textit{At the end, the artefact are created to fulfill the original goal of recreating it.}
 \chapter{Introduction}
 
-In the modern digital world, millions of songs are created every single year, the demand for recognising music increases. This article answer how does modern music recognition app work.
+In the modern digital world, millions of songs are created every single month. According to the former CEO Stephen Cooper from a prominent record label company Warner Bros - approximately 100,000 tracks are now being uploaded to popular music streaming site such as SoundCloud\trademark, Spotify\trademark, Apple Music\trademark and so on.\footcite{ingham_100000_2022} The demand for recognising music increases. According to the Google Play store\trademark (the Android\trademark app store), there are currently 500M+ Downloads of the Shazam\trademark app alone (*This number is taken in 2025.). And the functionality of Shazam\trademark are built in to all apple device around the world. That's about 2.35 billion active apple users having the Shazam\trademark app built in. \textit{(**This number includes all the device which the device might not be up to date and might include country that blocks the functionality. This data is taken in 2025 from Apple\trademark app store.)} That's about This article answer how does modern music recognition app work.
 
 The aim for this research is to understand and replicate how modern day music recognition algorithms work. 
 
-There are starter knowledge that are essential to know, in particular "what is Fourier Transform?". I used video tutorial from the Washington University to understand how it works. \footcite{steve_brunton_fast_2020} However due to the complexities that it involves, I ended up using codes from (\cite{virtanen_scipy_2020}) to complete the task of doing Fourier Transform.
+There are starter knowledge that are essential to know, in particular "what is Fourier Transform?". As part of this research, video tutorial from the Washington University are used to aid the understanding how it works. \footcite{brunton_fast_2020} However due to the complexities that it involves. In the end, code from (\cite{virtanen_scipy_2020}) are used to complete the task of doing Fourier Transform.
 
-I used a very concrete and credible source of a patent created by the original founder and Chief Scientist of Shazam\trademark (Now part of Apple Inc\trademark.) \footcite{newnham_interview_2023} which Shazam\trademark is the industry leader in music recognition. The patent created by the creator of Shazam\trademark are cited 771 times by other companies and organisation to create other resources. \footcite{wang_systems_2013} However, due to the age of the source, some information might be irrelevant and outdated.
+Within the research, research are conducted from a very concrete and credible source of a patent created by the original founder and Chief Scientist of Shazam\trademark (Now part of Apple Inc\trademark.) \footcite{newnham_interview_2023} which Shazam\trademark is the industry leader in music recognition. The patent created by the creator of Shazam\trademark are cited 771 times by other companies and organisation to create other resources. \footcite{wang_systems_2013} However, due to the age of the source, some information might be irrelevant and outdated.
 
-During the creation process, it was created using different resources to make the resource (e.g: patent, research paper) and also methods to test the success criteria set out by the algorithm. \footcite{yang_music_2001}
+During the creation process, it was created using different resources to make the artefact (e.g: patent, research paper) and also methods to test the success criteria set out by the algorithm. \footcite{yang_music_2001}
 
-I also conducted primary research as I talked with professional. See more in \autoref{section:meeting:pro}. 
+As part of this project, primary research are conducted with a professional. See more in \autoref{section:meeting:pro}. 
 \chapter{Methodology / Design Choice}
 
 The software is run inside a container as the patent suggested. By containerizing the program (using docker). It allows it to be run in a "Distributed system".
@@ -38,12 +39,12 @@ The home page of the app would immediately present the user with the instruction
 
 When the user start recording the music, the animated bubble effect shows up and the record button changed to red, indicating that the app is recording. As shown in \autoref{fig:screenshot:text:main:recording}.
 
-If the user hasn't given the web app the permission to use microphone, the logo will show the user that they haven't given the recording permission to us. As shown in \autoref{fig:screenshot:text:main:perm}.
+If the user have not given the web app the permission to use microphone, the logo will show the user that they have not given the recording permission to us. As shown in \autoref{fig:screenshot:text:main:perm}.
 
 And if they disabled their microphone entirely or if they blocked the access to microphone to the website, a pop-up will show up to prevent further action from the app, as the App will no-longer works. As shown in \autoref{fig:screenshot:text:main:no_perm}.
 
 \section{The algorithm}
-When the program first register the song in to the database. It will go through the process of "fingerprinting" the piece of music. The algorithm consist of creating spectrogram where it uses STFT (Fast Fourier Transform dissolves a function of time or signal into the frequencies that makes in a way similar to how a musical chord can be expressed as the pitches of its constituent notes. It is also called the frequency domain representation of the original signals. Short-time Fourier Transform is a variation of the Fast Fourier transform built for making spectrogram \footcite{alpay_short-time_2024}). Illustrated in \autoref{fig:fft}. \footcite{chittora_brief_2018} 
+When the program first registers the song in to the database. It will go through the process of "fingerprinting" the piece of music. The algorithm consist of creating spectrogram where it uses STFT (Fast Fourier Transform dissolves a function of time or signal into the frequencies that makes in a way similar to how a musical chord can be expressed as the pitches of its constituent notes. It is also called the frequency domain representation of the original signals. Short-time Fourier Transform is a variation of the Fast Fourier transform built for making spectrogram \footcite{alpay_short-time_2024}). Illustrated in \autoref{fig:fft}. \footcite{chittora_brief_2018} 
 
 In this case, The spectrogram is being filtered through using maximum filter. The two spectrograms are compared to pick peak points. The peaks used to construct the pairs. The pairs of points are hashed using the default hashing function (Hashing function is a function where you put in any item and getting back a number. Hash functions' output tells you where the item is store and the item can be searched in a very fast time. \footcite{bhargava_grokking_2016}) which generate an almost unique hash values in the program.  Illustrated in \autoref{fig:listfiltering}, \autoref{fig:hash} and \autoref{fig:pairspicking}.
 
@@ -64,17 +65,17 @@ The hash point is then placed into a database alongside with its song name and w
 
 When the user record the sample of audio through the user interface from the web app, the recording sample is sent to the server. It is processed where it applies the same algorithm from above. First it constructs a spectrogram, peak point are picked and hash values are created, the hash value searched inside the $points$ table. Same as the bottom row in \autoref{fig:hash}.
 
-The list of successfully matched song are than going through the process of "scoring". The score calculated by constructing a histogram with the point A's real time value. (The forth column of \autoref{fig:hash}) The highest score would be the correctly matched song. Using score system ensures accuracy results. \footcite{wang_systems_2013} \footcite{macleod_abracadabra_nodate} \footcite{yang_music_2001} \footcite{wang_industrial-strength_2003}
+The list of successfully matched song are than going through the process of "scoring". The score calculated by constructing a histogram with the point A's real time value. (The forth column of \autoref{fig:hash}) The highest score would be the correctly matched song. Using score system ensures accuracy results. \footcite{wang_systems_2013} \footcite{macleod_abracadabra_2022} \footcite{yang_music_2001} \footcite{wang_industrial-strength_2003}
 
 \chapter{Process of creation}
 \section{Coding section}
-I started by programming the algorithm of the program, as this is the hardest part to tackle. From using the blog post source \footcite{macleod_abracadabra_nodate}. It leads me to the direction of creating the algorithm that takes in the song file and output as the database. 
+The hardest part of creating this artefact is programming the algorithm of the program. From using the blog post source \footcite{macleod_abracadabra_2022}. It leads me to the direction of creating the algorithm that takes in the song file and output as the database. 
 
-I initially chose to use Python to program the algorithm as Python is the most popular programming language for data analysis and other general usage.
+Within the scope of the project, Python are chosen to program the algorithm, as Python is the most popular programming language for data analysis and other general usage.
 
-Initially I experienced a problem where there are two different song arrays. I later found out that because most song file are represented as stereo music (where there are typically two channels eg.: left ears and right ears). So I used a music encoding program of FFmpeg to first mixed the audio back into mono audio. I cannot find how Shazam\trademark handle stereo music as stereo music are prominent at the time of the patent are published. 
+Initially a problem appeared where there are two different song arrays. Later found out that because most song file are represented as stereo music (where there are typically two channels eg.: left ears and right ears). So a music encoding program of FFmpeg is used to mixed the audio back into mono audio. Unfortunately Shazam\trademark does not explicitly provide the information on how they handle stereo music as stereo music are prominent at the time of the patent are published. 
 
-From the research into the method of creating spectrogram, I have narrow the research to be impossible to create a spectrogram algorithm. So I chose to produce spectrogram using programming library. Next the spectrogram are initially programmed so that it is produced using the librosa library. However, due to the constraint created by the library and the performance that the library creates, I switched and choose to produce the spectrogram from the SciPy signal library \footcite{virtanen_scipy_2020}. The spectrogram produce by SciPy are illustrated in \autoref{fig:spectrogram}. (In the actual program, the spectrogram would not actually be produced because it is not necessary to produce it in the product artefact. I have created settings in the program that allows me to create diagram of how the program works.)
+From the research into the method of creating spectrogram, Due to the time constraint of this project, creating an algorithm that produces a spectrogram is not possible. A programming library is used to produce spectrogram instead of creating the spectrogram algorithm. Next the spectrogram are initially programmed so that it is produced using the librosa library. However, due to the constraint created by the library and the low efficiency that the library creates. Within the design it is require to be "high performance", so the signal library Scipy are used instead\footcite{virtanen_scipy_2020}. The spectrogram produce by SciPy are illustrated in \autoref{fig:spectrogram}. (In the actual program, the spectrogram would not actually be produced because it is not necessary to produce it in the product artefact. Settings have been included in the internal code so that diagram can be created to show the program works.)
 \begin{figure}[h!]
     \centering 
     \includegraphics[scale=0.2]{figures/Delta_distance_demo.png}
@@ -84,7 +85,7 @@ From the research into the method of creating spectrogram, I have narrow the res
 
 And the data are processed using the library of NumPy \footcite{harris_array_2020} through maximum filter in the library of SciPy \footcite{virtanen_scipy_2020}. The output of two arrays of spectrogram data are compared using NumPy technique of boolean mask as shown in the figure in \autoref{fig:listfiltering}.
 
-When the pairs are created from the peak picked from the maximum filter, I followed the patent to create pairs of points. However, the patent doesn't specify what is the upper and lower limit of how pair of points should be next to each other. From different testing I have concluded that the upper limit of $4000 Hz$ for the frequency and $1.5 second$ of time the pairs of points limited to. 
+When the pairs are created from the peak picked from the maximum filter, the patent included methods to create pairs of points. However, the patent does not specify what is the upper and lower limit of how pair of points should be next to each other. From different testing, it have suggested that the upper limit of $4000 Hz$ for the frequency and $1.5 second$ of time the pairs of points limited to. 
 
 In addition to the upper limits, the lower limit of $0.05 second$ to prevent pairs to be too close to each other. 
 
@@ -92,19 +93,19 @@ Having upper limit allows the program to not create too many pairs of values, as
 
 Having lower limit allows points that are nearly next to each other to be omitted from pairing up, as some recording, there are imperfection in intonation or sound attenuation over distances when recording.
 
-I also discovered from creating the program, rounding up the frequency and the time value are required for the algorithm to work properly. This is discovered during the creation phase of the project as I discussed with the professional (\autoref{section:meeting:pro}). This might be due to different microphone in different device records slightly differently, and their electrical design might be different. And also as sound wave propagates for some distances through the atmosphere, high-frequency components become more attenuated than low-frequency ones due to heat conduction, shear viscosity, and relaxation losses. This is noticeable after $>15 \unit{\meter}$. \footcite{spiousas_sound_2017}
+It was also discovered that from creating the program, rounding up the frequency and the time value are required for the algorithm to work properly. This is discovered during the creation phase of the project from the discussion with the professional (\autoref{section:meeting:pro}). This might be due to different microphone in different device records slightly differently, and their electrical design might be different. And also as sound wave propagates for some distances through the atmosphere, high-frequency components become more attenuated than low-frequency ones due to heat conduction, shear viscosity, and relaxation losses. This is noticeable after $>15 \unit{\meter}$. \footcite{spiousas_sound_2017}
 
 \section{Material selection}
-Because this algorithm requires a library of song to demonstrate its effectiveness. I choose to use the library of song from Kevin MacLeod, all of his song library are copyright free and licensed under \textit{the Creative Commons Attributions}. This is to avoid the copyright issue as I might infringe the \textit{Copyright, Designs and Patents Act 1988}, section 47 as \textit{"copying the material"}, as the algorithm are required to download the music and analysis it from it placing it inside the database. 
+Because this algorithm requires a library of song to demonstrate its effectiveness. Library of song from Kevin MacLeod are used for this artefact for demo songs used to test the algorithm, all of his song library are copyright free and licensed under \textit{the Creative Commons Attributions}. This is done to avoid infringing the \textit{Copyright, Designs and Patents Act 1988}, section 47 as \textit{"copying the material"}, as the algorithm are required to download the music and analysis it from it placing it inside the database. 
 
-The logo in the web app are also downloaded from the \textit{Google Material Symbols and Icons} as they are licensed under free and open source licence of \textit{Apache Licence 2.0}. And I think the logo from the library create a more user-friendly way of interacting the App.
+The logo in the web app are also downloaded from the \textit{Google Material Symbols and Icons} as they are licensed under free and open source licence of \textit{Apache Licence 2.0}. And the logo from the library create a more user-friendly way of interacting the App.
 
 \section{Extra investigation}
-I faced challenge during the creation process, due to random noise in the sample of the audio during the fingerprinting process, I wasn't able to block the random noise in the sample, because of this when the program is sampling "Nothing" just background noise, it would appear to the user that there is song playing in the background with a random results because the program only initially took the maximum value from the list of scores. This is not mentioned in any of the articles.
+During the creation process the project encounters a hurdle, due to random noise in the sample of the audio during the fingerprinting process, it was unable to block the random noise in the sample, because of this when the program is sampling "Nothing" just background noise, it would appear to the user that there is song playing in the background with a random results because the program only initially took the maximum value from the list of scores. This is not mentioned in any of the articles.
 
-I fixed this problem by using a mathematical concept of finding outliers from the list of songs. First I got all the score from the searching done inside the database. Then the interquartile range would be calculated from the list of data. If there are an outlier, that means that the matched songs are not created by random background noise from the sample itself. See \autoref{fig:error:screen}
+Investigation and experiment is done to fixed the problem. The problem are fixed by using a mathematical concept of finding outliers from the list of songs. Firstly, all the score are fetched from the searching done inside the database. Then, the interquartile range would be calculated from the list of data. If there are an outlier, that means that the matched songs are not created by random background noise from the sample itself. See \autoref{fig:error:screen}
 
-There are also places where I did to avoid errors in the program such as at the start the user can record sample of the music that have a short duration, this would not be effective as the program would not be able to recognise songs. So I added an error prompt message to stop the user from uploading a song that is too short. See \autoref{fig:error:screen}.
+There are also places where errors are circumvented, such as at the start the user can record sample of the music that have a short duration, this would not be effective as the program would not be able to recognise songs. So an error prompt message is added to stop the user from uploading a song that is too short. See \autoref{fig:error:screen}.
 \begin{figure}[b!]
     \includegraphics[scale=0.125]{screenshots/unrecognizable_tooshort.png} 
     \includegraphics[scale=0.125]{screenshots/unrecognizable_song.png} 
@@ -128,14 +129,14 @@ The test have increasing level of difficulty:
 \end{itemize}
 The test results is inside \autoref{fig:table_of_testing_result}.
 
-The program overall worked as expected but test 5,6 doesn't work because this algorithm is not designed for this.
+The program overall worked as expected but test 5,6 does not work because this algorithm is not designed for this.
 
 There are also additional tests one where there are no audio playing, just background noise, this is done for control purposes.
 \chapter{Discussion}
 
 As discussed in \hyperref[t:test_transposed]{the test conducted}, this artefact is not capable to detect a transposed song. Because this song only matches the exact frequency that the song produces. 
 
-One way that the problem can solve is to change the mechanism entirely to not rely purely on the raw frequency data, instead by using the MIDI file of the song which contains a series of message like note. \footcite{amandaghassaei_what_nodate} Then from it, create a database of melody. Which can recognise songs from it by recording the song and passing into the algorithm to process for results. This allows a wider error range for recognizing song such as made from "humming". \footcite{ghias_query_1995}. However, this would make the algorithm costly and slow to run. \footcite{yang_music_2001}
+One way that the problem can solve is to change the mechanism entirely to not rely purely on the raw frequency data, instead by using the MIDI file where it uses MIDI messages that control musical elements like pitch, velocity, modulation, and more. \footcite{anthony_what_2025} Then from it, create a database of melody. Which can recognise songs from it by recording the song and passing into the algorithm to process for results. This allows a wider error range for recognizing song such as made from "humming". \footcite{ghias_query_1995}. However, this would make the algorithm costly and slow to run. \footcite{yang_music_2001}
 
 In addition, extra research might be needed to improve the speed, making it more commercially viable which is the goal set out by the Shazam\trademark team where they designed it so that it's high performance. \footcite{wang_systems_2013}
 
@@ -143,10 +144,10 @@ The research can also be further extended not limited to searching for songs, su
 
 In addition, this project only uses copyright-free music, as there would be legal and ethical implication to using contemporary music.
 
-The biggest ethical implication that most music recognition app faced are privacy violation, as some app record the audio in the background even without user interaction. The project would not be concerned about this because it only records when user intended to. So I created a privacy notice to show to the user if needed. 
+The biggest ethical implication that most music recognition app faced are privacy violation, as some app record the audio in the background even without user interaction. The project would not be concerned about this because it only records when user intended to. So a privacy notice is created to show to the user if needed. 
 
 \chapter{Conclusion}
 
 Further research might be needed into improving the accuracy, making it able to recognise variation of the same song. \footcite{yang_music_2001}
 
-In conclusion, It met the expectation of the project end goal which are tested using a vigorous testing method set out by a professional opinion and an article. 
+In conclusion, it met the expectation of the project end goal which are tested using a vigorous testing method set out by a professional opinion and an article. 
