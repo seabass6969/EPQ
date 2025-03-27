@@ -26,7 +26,8 @@
 
 \usepackage{pdflscape}
 
-\usepackage{amsmath, amsfonts, amsthm, graphicx, geometry, lipsum, subfigure}
+\usepackage{amsmath, amsfonts, amsthm, graphicx, lipsum, subfigure}
+\usepackage[margin=2cm]{geometry}
 \usepackage{blindtext}
 \makeatletter
 \let\runauthor\@author
@@ -51,7 +52,7 @@
 \usepackage{verbatim, fancyvrb}
 \usepackage{fancyhdr, lastpage}
 \pagestyle{fancy}
-\lhead{\runtitle}
+\lhead{}
 \rhead{\runauthor}
 \usepackage{listings}
 
@@ -76,7 +77,7 @@
 }
 \renewcommand\theHtable{Appendix.\thetable}
 
-\newcommand{\trademark}{\textsuperscript{\textregistered}}
+\newcommand{\trademark}{\textsuperscript{\textregistered}$\;$}
 \newcommand\TBox[3][]{%
   \tikz\node[draw,ultra thick,text width=#2,align=left,#1] {#3};}
 
