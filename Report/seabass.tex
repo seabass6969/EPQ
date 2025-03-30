@@ -136,3 +136,5 @@ Issue Date: \citedate{#1}
 \newline
 URL: \citeurl{#1}
 }
+
+\patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{}

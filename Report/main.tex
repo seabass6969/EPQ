@@ -11,10 +11,11 @@
 
 \begin{titlepage}
    \centering
-   {\Large \bfseries {\runtitle} \bigbreak}
-    {\scriptsize \small{Suen Hang C Yeung}\bigbreak}
+    {\Large \bfseries {\underline{\runtitle}} \bigbreak}
+    {\scriptsize \small{Name: Suen Hang C Yeung}\bigbreak}
    {\scriptsize \small{Candidate number: 9273} \bigbreak}
    {\scriptsize \small{Centre number: 28278} \bigbreak}
+    {\scriptsize \small{(AQA Extended Project Qualification - 7993)} \bigbreak}
    \includegraphics[scale=0.3]{screenshots/main_screen.png}\par\vspace{1cm}
 \end{titlepage} % \maketitle
 \tableofcontents
@@ -47,21 +48,26 @@
 \chapter{Links}
 \input{link.tex}
 \chapter{Presentation}
-\includepdf[pages=-]{presentation.pdf}
+\includepdf[pages=-, pagecommand={\pagestyle{fancy}}]{presentation.pdf}
 \chapter{Word Count}
 \begin{itemize}
     \item 97 Chapter: Abstract
-    \item 398 Chapter: Introduction
+    \item 413 Chapter: Introduction
     \item 64 Chapter: Methodology / Design Choice
-    \item 214 Section: Web app
-    \item 383 Section: The algorithm
+    \begin{itemize}
+        \item 211 Section: Web app
+        \item 381 Section: The algorithm
+    \end{itemize}
     \item 0 Chapter: Process of creation
-    \item 704 Section: Coding section
-    \item 144 Section: Material selection
-    \item 239 Section: Extra investigation
-    \item 314 Chapter: Testing method
-    \item 365 Chapter: Discussion
-    \item 172 Chapter: Conclusion
+    \begin{itemize}
+        \item 715 Section: Coding section
+        \item 144 Section: Material selection
+        \item 241 Section: Extra investigation
+    \end{itemize}
+    \item 311 Chapter: Testing method
+    \item 362 Chapter: Discussion
+    \item 180 Chapter: Conclusion
 \end{itemize}
-Words in text: 3094
+Words in text: 3119\\
+Note: this word count doesn't include text from headers, captions in the image, figures in tables, bibliography and anything from appendix
 \end{document}
